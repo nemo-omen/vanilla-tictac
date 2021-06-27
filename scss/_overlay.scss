@@ -1,0 +1,145 @@
+$fonts: 'Roboto', 'Open Sans', 'Helvetica', sans-serif;
+
+$blackish: #121213;
+$lightblackish: #18181a;
+$lightlightblackish: #1d1d20;
+$whitish: #f3f2f2;
+$darkwhitish: #e6e6e6;
+$darkdarkwhitish: #dddddd;
+$gray: #595f66;
+$lightgray: #6f7985;
+$lightlightgray: #8999ac;
+$darkgray: #3d454e;
+$darkdarkgray: #222b35;
+
+#board, #win-overlay-horizontal, #win-overlay-vertical, #reset {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: clamp(320px, 80vw, 700px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  border: 1px solid $lightgray;
+  transform: translateX(-50%);
+}
+
+#win-overlay-horizontal {
+  grid-template-areas: 
+    "a a a"
+    "b b b"
+    "c c c";
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  .a-line, .b-line, .c-line {
+    margin-inline: 4vw;
+  }
+}
+
+#win-overlay-vertical {
+  grid-template-areas: 
+    "a b c"
+    "a b c"
+    "a b c";
+  justify-items: center;
+  pointer-events: none;
+  .a-line, .b-line, .c-line {
+    margin-block: 4vw;
+  }
+}
+
+#reset {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4vw;
+  pointer-events: none;
+}
+
+.win-line {
+  border: 6px solid tomato;
+  background-color: tomato;
+  animation: fadeIn 400ms ease-in-out 250ms 1 backwards;
+}
+
+.a-line {
+  grid-area: a;
+}
+
+.b-line {
+  grid-area: b;
+}
+
+.c-line {
+  grid-area: c;
+}
+
+.d-line {
+  grid-area: b;
+  transform: rotate(45deg);
+}
+
+.e-line {
+  grid-area: b;
+  transform: rotate(-45deg);
+}
+
+.reset-button {
+  background: tomato;
+  color: $whitish;
+  border: 2px solid $whitish;
+  font-size: 3vw;
+  padding: 1rem;
+  cursor: pointer;
+  box-shadow: 10px 10px 0px darkmagenta;
+  animation: scaleIn 300ms ease-in-out 500ms 1 both;
+}
+
+.reset-title {
+  font-size: 5vw;
+  text-shadow: 10px 10px 0px darkmagenta;
+  animation: scaleIn 300ms ease-in-out 500ms 1 both;
+}
+
+.win-title {
+  color: cyan;
+}
+
+.lose-title {
+  color: tomato;
+}
+
+.draw-title {
+  color: $whitish;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.0;
+    border-color: black;
+  }
+  50% {
+    border-color: white;
+  }
+  100% {
+    opacity: 1.0;
+    border-color: tomato
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.2);
+    opacity: 1.0;
+  }
+  100% {
+    transform: scale(1.0);
+  }
+}

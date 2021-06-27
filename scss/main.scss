@@ -1,0 +1,152 @@
+@use 'overlay';
+
+$fonts: 'Roboto', 'Open Sans', 'Helvetica', sans-serif;
+
+$blackish: #121213;
+$lightblackish: #18181a;
+$lightlightblackish: #1d1d20;
+$whitish: #f3f2f2;
+$darkwhitish: #e6e6e6;
+$darkdarkwhitish: #dddddd;
+$gray: #595f66;
+$lightgray: #6f7985;
+$lightlightgray: #8999ac;
+$darkgray: #3d454e;
+$darkdarkgray: #222b35;
+
+:root {
+  font-family: $fonts;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: $blackish;
+  color: $lightlightgray;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: 1px solid $darkdarkgray;
+}
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-block: 4vh;
+}
+
+button {
+  border: none;
+  color: inherit;
+}
+#content {
+  position: relative;
+  flex-basis: 0;
+  flex-grow: 999;
+  background-color: $darkgray;
+  margin-inline: auto;
+  min-width: 60%;
+}
+
+#sidebar {
+  flex-basis: 30vw;
+  flex-grow: 1;
+  justify-self: flex-start;
+
+  > {
+    line-height: 1;
+    margin-top: 0;
+  }
+
+  > * + * {
+    margin-top: 4vh;
+  }
+}
+
+/*Add borders to cells using nth-child selector*/
+#board > *:nth-child(3n+1) {
+  border-right: 1px solid $lightgray;
+}
+
+#board > *:nth-child(3n+2) {
+  border-right: 1px solid $lightgray;
+}
+
+
+#board > *:nth-child(3n), 
+#board > *:nth-child(3n - 1), 
+#board > *:nth-child(3n - 2) {
+  border-bottom: 1px solid $lightgray;
+}
+
+
+#board > *:nth-child(7), 
+#board > *:nth-child(8), 
+#board > *:nth-child(9) {
+  border-bottom: none;
+}
+
+.cell {
+  font-size: 7rem;
+  font-weight: 200;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2vw;
+  background-color: $blackish;
+  transition: all 300ms ease-out;
+  outline-offset: -2px;
+  color: $lightgray;
+}
+
+.cell:hover,
+.cell:focus {
+  background-color: $lightlightblackish;
+}
+
+.cell:active {
+  background-color: $darkdarkgray;
+  outline: 2px solid $lightgray;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 900;
+}
+
+.player-control > * + * {
+  margin-top: 1rem;
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.c {
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 1;
+  animation: scaleIn 300ms ease-in-out 1;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.2);
+    opacity: 1.0;
+  }
+  100% {
+    transform: scale(1.0);
+  }
+}

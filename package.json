@@ -1,0 +1,14 @@
+{
+  "name": "vanilla-tictac",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.3.8",
+    "concurrently": "^6.2.0",
+    "sass": "^1.35.1"
+  }
+}
