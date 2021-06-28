@@ -33,7 +33,9 @@ function populateCells(maxCells) {
     // if we have no more cells to populate, we can
     // attach event listeners to the gameCells
     cells = Array.from(document.querySelectorAll('.cell'));
+    
     setCellListeners();
+    setCellLabels();
     return;
   }
   cellNumbers.push(`cell-${maxCells.toString()}`);
@@ -53,6 +55,25 @@ function setCellListeners() {
       }
     });
   });
+}
+
+function setCellLabels() {
+  let labelText = '';
+  const buttons = Array.from(document.querySelectorAll('button'));
+
+    buttons.forEach((cell) => {
+      const index = cells.indexOf(cell);
+      if(index <= 2) {
+        labelText = `Row one, cell ${(index + 1).toString()}; Empty.`;
+      } else if(index <= 5 && index > 2) {
+        labelText = `Row two, cell ${(index - 2).toString()}; Empty.`;
+      } else {
+        labelText = `Row three, cell ${(index - 5).toString()}; Empty.`;
+      }
+
+      cell.setAttribute('aria-label', labelText);
+    });
+
 }
 
 
@@ -87,6 +108,11 @@ function setToken(cell, player) {
   // update innerHTML
   cell.innerHTML = player === 1 ? x : o;
 
+  let currentLabelText = cell.getAttribute('aria-label');
+
+  currentLabelText = currentLabelText.replace(' Empty.', ` Taken by player ${player.toString()}.`);
+
+  cell.setAttribute('aria-label', currentLabelText);
   updateWinnerState(winCheck(gameState.cellState));
 }
 
@@ -123,6 +149,7 @@ function displayReset() {
   let resetTitle = document.createElement('h2');
 
   button.innerText = 'Play Again';
+  button.setAttribute('aria-label', 'Play Again');
   button.classList.add('reset-button');
 
   resetTitle.classList.add('reset-title');

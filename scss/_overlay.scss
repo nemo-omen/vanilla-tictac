@@ -21,6 +21,7 @@ $darkdarkgray: #222b35;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  grid-gap: 1px;
   border: 1px solid $lightgray;
   transform: translateX(-50%);
 }
@@ -96,6 +97,10 @@ $darkdarkgray: #222b35;
   cursor: pointer;
   box-shadow: 10px 10px 0px darkmagenta;
   animation: scaleIn 300ms ease-in-out 500ms 1 both;
+}
+
+.reset-button:focus {
+  outline: 8px solid #FF00D4;
 }
 
 .reset-title {

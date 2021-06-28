@@ -8,7 +8,7 @@ cd dist
 
 git init
 
-git add -a
+git add -A
 
 git commit -m "deploy"
 
