@@ -1,4 +1,4 @@
-export const o = `
+export const o = (player, cell) => `
 <svg 
   class="c"
   viewBox="0 0 102 102" 
@@ -9,7 +9,7 @@ export const o = `
 </svg>
 `;
 
-export const x = `
+export const x = (player, cell) => `
 <svg 
   class="c"
   viewBox="0 0 105 105"

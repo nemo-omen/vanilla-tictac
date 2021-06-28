@@ -58,24 +58,41 @@ function setCellListeners() {
 }
 
 function setCellLabels() {
-  let labelText = '';
   const buttons = Array.from(document.querySelectorAll('button'));
 
     buttons.forEach((cell) => {
-      const index = cells.indexOf(cell);
-      if(index <= 2) {
-        labelText = `Row one, cell ${(index + 1).toString()}; Empty.`;
-      } else if(index <= 5 && index > 2) {
-        labelText = `Row two, cell ${(index - 2).toString()}; Empty.`;
-      } else {
-        labelText = `Row three, cell ${(index - 5).toString()}; Empty.`;
-      }
-
+      let labelText = setCellLabelByIndex(cells.indexOf(cell));
+      labelText += ' Empty.'
       cell.setAttribute('aria-label', labelText);
     });
-
 }
 
+
+function setCellLabelByIndex(index) {
+  let labelText = '';
+
+  if(index <= 2) {
+    labelText = `Row ${setRowLabel(index)}, cell ${(index + 1).toString()}.`;
+  } else if(index <= 5 && index > 2) {
+    labelText = `Row ${setRowLabel(index)}, cell ${(index - 2).toString()}.`;
+  } else {
+    labelText = `Row ${setRowLabel(index)}, cell ${(index - 5).toString()}.`;
+  }
+
+  return labelText;
+}
+
+function setRowLabel(index) {
+  let rowName = '';
+  if(index <= 2) {
+    rowName = "one";
+  } else if(index <=5 && index > 2) {
+    rowName = 'two';
+  } else {
+    rowName = 'three';
+  }
+  return rowName;
+}
 
 /**
  * Updates the innerHTML of the given cell (a button element)
@@ -107,10 +124,11 @@ function setToken(cell, player) {
   
   // update innerHTML
   cell.innerHTML = player === 1 ? x : o;
+  const token = document.createElement('div');
 
   let currentLabelText = cell.getAttribute('aria-label');
 
-  currentLabelText = currentLabelText.replace(' Empty.', ` Taken by player ${player.toString()}.`);
+  currentLabelText = currentLabelText.replace(' Empty.', ` ${player === 1 ? 'X' : 'O'}.`);
 
   cell.setAttribute('aria-label', currentLabelText);
   updateWinnerState(winCheck(gameState.cellState));
@@ -153,11 +171,11 @@ function displayReset() {
   button.classList.add('reset-button');
 
   resetTitle.classList.add('reset-title');
-
+  
   button.addEventListener('click', (event) => {
     resetGame();
   });
-
+  
   if(gameState.winner === 1) {
     resetTitle.innerText = 'YOU WIN!';
     resetTitle.classList.add('win-title')
@@ -169,9 +187,13 @@ function displayReset() {
     resetTitle.classList.add('draw-title')
   }
 
+  
+  resetTitle.setAttribute('role', 'alert');
   resetOverlay.style.pointerEvents = 'auto';
-  resetOverlay.appendChild(resetTitle);
-  resetOverlay.appendChild(button);
+  setTimeout(() => {
+    resetOverlay.appendChild(resetTitle);
+    resetOverlay.appendChild(button);
+  }, 1000);
 }
 
 function drawWinLine(indexArray) {
