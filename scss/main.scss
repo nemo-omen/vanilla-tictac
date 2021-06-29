@@ -14,6 +14,11 @@ $lightlightgray: #8999ac;
 $darkgray: #3d454e;
 $darkdarkgray: #222b35;
 
+$red: tomato;
+$yellow: gold;
+$blue: cornflowerblue;
+$pink: #fc0fc0;
+
 :root {
   font-family: $fonts;
 }
@@ -41,6 +46,25 @@ header {
     display: flex;
     justify-content: center;
     align-items: baseline;
+    color: $whitish;
+    text-shadow:
+    0px 0px 0 $blue,
+    0px 0px 0 $yellow;
+    transition: all 150ms ease-out;
+  }
+  
+  h1 a {
+    text-decoration: none;
+    transition: all 150ms ease-out;
+  }
+
+  h1:hover a {
+    color: $yellow;
+    text-shadow:
+      3px 3px 0 $whitish,
+      6px 6px 0 $red,
+      9px 9px 0 $whitish;
+    text-decoration: none;
   }
 }
 
@@ -127,6 +151,14 @@ button {
   outline: 2px solid $lightgray;
 }
 
+.token {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 h1, h2, h3 {
   font-weight: 900;
 }
@@ -166,6 +198,16 @@ a:hover {
   stroke: currentColor;
   stroke-width: 1;
   animation: scaleIn 300ms ease-in-out 1;
+}
+
+.visually-hidden {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
 }
 
 @keyframes scaleIn {

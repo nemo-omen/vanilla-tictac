@@ -1,5 +1,5 @@
 import './scss/main.scss';
-import { x, o } from './tokens.js';
+import { playerToken } from './tokens.js';
 import { winCheck } from './wincheck.js';
 
 const board = document.getElementById('board');
@@ -40,7 +40,21 @@ function populateCells(maxCells) {
   }
   cellNumbers.push(`cell-${maxCells.toString()}`);
   gameState.cellState.push(null);
-  board.innerHTML += `<button class="cell" id="cell-${cellNumbers.length}"></button>`;
+  board.innerHTML += `
+    <button 
+      class="cell" 
+      id="cell-${cellNumbers.length}"
+      role="gridcell"
+    ></button>
+  `;
+  // board.innerHTML += `
+  //   <button 
+  //     class="cell" 
+  //     id="cell-${cellNumbers.length}"
+  //     type="button" 
+  //     aria-pressed="false"
+  //   ></button>
+  // `;
   populateCells(maxCells - 1);
 }
 
@@ -72,11 +86,11 @@ function setCellLabelByIndex(index) {
   let labelText = '';
 
   if(index <= 2) {
-    labelText = `Row ${setRowLabel(index)}, cell ${(index + 1).toString()}.`;
+    labelText = `Row ${setRowLabel(index)} cell ${(index + 1).toString()}.`;
   } else if(index <= 5 && index > 2) {
-    labelText = `Row ${setRowLabel(index)}, cell ${(index - 2).toString()}.`;
+    labelText = `Row ${setRowLabel(index)} cell ${(index - 2).toString()}.`;
   } else {
-    labelText = `Row ${setRowLabel(index)}, cell ${(index - 5).toString()}.`;
+    labelText = `Row ${setRowLabel(index)} cell ${(index - 5).toString()}.`;
   }
 
   return labelText;
@@ -120,11 +134,12 @@ function setToken(cell, player) {
 
   // set cellState index to current player
   gameState.cellState[cellIndex] = player;
-
   
   // update innerHTML
-  cell.innerHTML = player === 1 ? x : o;
-  const token = document.createElement('div');
+  cell.innerHTML = playerToken(player, setCellLabelByIndex(cellIndex));
+
+  //set button state to pressed
+  // cell.setAttribute('aria-pressed', true);
 
   let currentLabelText = cell.getAttribute('aria-label');
 
@@ -144,7 +159,7 @@ function updateWinnerState(winStateObject) {
       gameState.currentPlayer = 2;
       setTimeout(() => {
         nextMove();
-      }, 1000);
+      }, 3500);
     } else if(gameState.currentPlayer === 2) {
       gameState.currentPlayer = 1;
     }
